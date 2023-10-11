@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 prepare_passenger_data = pd.read_csv("passenger_data.csv")
 prepare_infrastructure_data = pd.read_csv("InfrastructureInvestments_data.csv")
 gdp_data = pd.read_csv("GDP_data.csv")
-gdp_data = gdp_data.applymap(lambda x: '{:.0f}'.format(float(x)))
 gdp_per_capita_data = pd.read_csv("GDP_per_capita_data.csv")
 
 # Choose the timeframe you want to consider
@@ -119,6 +118,7 @@ passenger_data = passenger_data[passenger_data['Country'].isin(feasible_countrie
 infrastructure_data = infrastructure_data[infrastructure_data['Country'].isin(feasible_countries)]
 
 gdp_data.set_index('Country', inplace=True)
+gdp_data = gdp_data.applymap(lambda x: '{:.0f}'.format(float(x)))  # Convert large numbers (e-powers) to normal numbers
 gdp_per_capita_data.set_index('Country', inplace=True)
 passenger_data.set_index('Country', inplace=True)
 infrastructure_data.set_index('Country', inplace=True)
