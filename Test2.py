@@ -1,5 +1,6 @@
 import pandas as pd
 
+#import csv files and store them with a fitting name
 gdp_per_capita_data=pd.read_csv('gdp_per_capita_new.csv', index_col='Country')
 gdp_data=pd.read_csv('gdp_new.csv', index_col='Country')
 infrastructure_road_data=pd.read_csv('Infrastructure_road_new.csv', index_col='Country')
@@ -7,6 +8,7 @@ infrastructure_train_data=pd.read_csv('infrastructure_train_new.csv', index_col=
 population_data=pd.read_csv('population_new.csv', index_col='Country')
 passenger_data=pd.read_csv('passenger_new.csv', index_col='Country')
 
+#check if the data is imported correctly
 infrastructure_road_data.head()
 infrastructure_train_data.head()
 population_data.head()
@@ -14,6 +16,9 @@ passenger_data.head()
 gdp_per_capita_data.head()
 gdp_data.head()
 
+#Calculate average over the 20 years in a new column, and then drop all original data
+#except for the generated column containing the average.
+#Also give a fitting name to this new column. This is repeated for all relevant input data.
 infrastructure_road_data = infrastructure_road_data.loc[:, '2000':'2020'].mean(axis=1)
 infrastructure_road_data = infrastructure_road_data.drop(columns=range(2000, 2021))
 infrastructure_road_mean = pd.DataFrame({'Average investments in road infrastructure': infrastructure_road_data})
@@ -47,36 +52,9 @@ print(population_mean.index)
 print(infrastructure_train_mean.index)
 print(infrastructure_road_mean.index)
 
+#Merge all the dataframes for all the means by first adding them to a list and then concatenating them
 dataframes_to_be_merged = [gdp_mean, gdp_per_capita_mean, population_mean, passenger_mean, infrastructure_road_mean, infrastructure_train_mean]
-descriptive_table = pd.concat(dataframes_to_be_merged, axis=1).reset_index(drop=True)
+descriptive_table = pd.concat(dataframes_to_be_merged, axis=1)
+descriptive_table = descriptive_table.reset_index()
+descriptive_table = descriptive_table.rename(columns={'index': 'Country'})
 print(descriptive_table)
-
-#gdp=gdp_mean.append(gdp_per_capita_mean)
-#gdp_mean.shape, gdp_per_capita_mean.shape, gdp.shape
-
-#gdp_pop=gdp.append(population_mean)
-#gdp.shape, population_mean.shape, gdp_pop.shape
-
-#gdp_pop_pas=gdp_pop.append(passenger_mean)
-#gdp_pop.shape, passenger_mean.shape, gdp_pop_pas.shape
-
-#gdp_pop_pas_invr=gdp_pop_pas.append(infrastructure_road_mean)
-#gdp_pop_pas.shape, infrastructure_road_mean.shape, gdp_pop_pas_invr.shape
-
-#gdp_pop_pas_invr_invt = gdp_pop_pas_invr.append(infrastructure_train_mean)
-#gdp_pop_pas_invr.shape, infrastructure_train_mean.shape, gdp_pop_pas_invr.shape
-#print(gdp_pop_pas_invr_invt)
-
-#calculate mean of investments
-
-
-
-
-
-#GDPInvPop=GDPInv.append(Population)
-#GDPInv.shape, Population.shape, GDPInvPop.shape
-
-#GDPInvPopPas = GDPInvPop.append(Passengers)
-#GDPInvPop.shape, Passengers.shape, GDPInvPopPas.shape
-
-#print(GDPInvPopPas)
