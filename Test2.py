@@ -52,3 +52,10 @@ descriptive_table = pd.concat(dataframes_to_be_merged, axis=1)
 descriptive_table = descriptive_table.reset_index()
 descriptive_table = descriptive_table.rename(columns={'index': 'Country'})
 print(descriptive_table)
+
+#Description of the table:
+#The table the above mentioned code generates provides the averages of the input 
+#data from 2000 up to 2020 for the 15 countries all desired data were found for.
+#Thus an overview is provided of how the input data differ for these 15 different
+#countries. When analysing the generated plots later in this report the table can 
+#be of use for putting the output in the right perspective.
